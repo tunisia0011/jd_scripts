@@ -144,4 +144,4 @@
 #京享值pk
 15 0,6,13,19,21 * * * node /scripts/jd_ddo.js >> /scripts/logs/jd_ddo.log 2>&1
 #点点券
-10 0,20 * * * node /scripts/jd_necklace,js >> /scripts/logs/jd_necklace,log 2>&1
+10 0,20 * * * node /scripts/jd_necklace,js >> /scripts/logs/jd_necklace.log 2>&1
