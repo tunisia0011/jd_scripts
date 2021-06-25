@@ -99,7 +99,7 @@ async function jdJoy() {
      $.validator='';
     let va= new validator($);
     //console.log(va);
-    
+
     await va.run();
     await getPetTaskConfig();
     if ($.getPetTaskConfigRes.success) {
@@ -163,7 +163,7 @@ async function joinTwoPeopleRun() {
       console.log(`赛跑状态：${petRaceResult}\n`);
       if (petRaceResult === 'not_participate') {
         console.log(`暂未参赛，现在为您参加${teamLevelTemp}人赛跑`);
-       
+
         await runMatch(teamLevelTemp * 1);
         if ($.runMatchResult.success) {
           await getWinCoin();
