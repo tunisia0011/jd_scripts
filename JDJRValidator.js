@@ -3,8 +3,7 @@ const http = require('http');
 const stream = require('stream');
 const zlib = require('zlib');
 const vm = require('vm');
-const PNG = require('png-js');
-const UA = require('./USER_AGENTS.js').USER_AGENT;
+const { createCanvas, Image } = require('canvas');
 
 
 Math.avg = function average() {
@@ -19,129 +18,41 @@ function sleep(timeout) {
     return new Promise((resolve) => setTimeout(resolve, timeout));
 }
 
-class PNGDecoder extends PNG {
-    constructor(args) {
-        super(args);
-        this.pixels = [];
-    }
-
-    decodeToPixels() {
-        return new Promise((resolve) => {
-            this.decode((pixels) => {
-                this.pixels = pixels;
-                resolve();
-            });
-        });
-    }
-
-    getImageData(x, y, w, h) {
-        const { pixels } = this;
-        const len = w * h * 4;
-        const startIndex = x * 4 + y * (w * 4);
-
-        return { data: pixels.slice(startIndex, startIndex + len) };
-    }
-}
-
+const canvas = createCanvas();
 const PUZZLE_GAP = 8;
 const PUZZLE_PAD = 10;
 class PuzzleRecognizer {
     constructor(bg, patch, y) {
         // console.log(bg);
-        const imgBg = new PNGDecoder(Buffer.from(bg, 'base64'));
-        const imgPatch = new PNGDecoder(Buffer.from(patch, 'base64'));
+        const imgBg = new Image();
+        const imgPatch = new Image();
 
-        // console.log(imgBg);
+        imgBg.src = bg;
+        imgPatch.src = patch;
+        // console.log(imgBg.naturalWidth);
 
         this.bg = imgBg;
         this.patch = imgPatch;
-        this.rawBg = bg;
-        this.rawPatch = patch;
         this.y = y;
-        this.w = imgBg.width;
-        this.h = imgBg.height;
+        this.w = imgBg.naturalWidth;
+        this.h = imgBg.naturalHeight;
+        this.ctx = canvas.getContext('2d');
     }
 
-    async run() {
-        await this.bg.decodeToPixels();
-        await this.patch.decodeToPixels();
+    run() {
+        const { ctx, w, h } = this;
+
+        canvas.width = w;
+        canvas.height= h;
+        ctx.clearRect(0, 0, w, h);
+        ctx.drawImage(this.bg, 0, 0, w, h);
 
         return this.recognize();
     }
 
     recognize() {
-        const { ctx, w: width, bg } = this;
-        const { width: patchWidth, height: patchHeight } = this.patch;
-        const posY = this.y + PUZZLE_PAD + ((patchHeight - PUZZLE_PAD) / 2) - (PUZZLE_GAP / 2);
-        // const cData = ctx.getImageData(0, a.y + 10 + 20 - 4, 360, 8).data;
-        const cData = bg.getImageData(0, posY, width, PUZZLE_GAP).data;
-        const lumas = [];
-
-        for (let x = 0; x < width; x++) {
-            var sum = 0;
-
-            // y xais
-            for (let y = 0; y < PUZZLE_GAP; y++) {
-                var idx = x * 4 + y * (width * 4);
-                var r = cData[idx];
-                var g = cData[idx + 1];
-                var b = cData[idx + 2];
-                var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-
-                sum += luma;
-            }
-
-            lumas.push(sum / PUZZLE_GAP);
-        }
-
-        const n = 2; // minium macroscopic image width (px)
-        const margin = patchWidth - PUZZLE_PAD;
-        const diff = 20; // macroscopic brightness difference
-        const radius = PUZZLE_PAD;
-        for (let i = 0, len = lumas.length - 2*4; i < len; i++) {
-            const left = (lumas[i] + lumas[i+1]) / n;
-            const right = (lumas[i+2] + lumas[i+3]) / n;
-            const mi = margin + i;
-            const mLeft = (lumas[mi] + lumas[mi+1]) / n;
-            const mRigth = (lumas[mi+2] + lumas[mi+3]) / n;
-
-            if (left - right > diff && mLeft - mRigth < -diff) {
-                const pieces = lumas.slice(i+2,margin+i+2);
-                const median = pieces.sort((x1,x2)=>x1-x2)[20];
-                const avg = Math.avg(pieces);
-
-                // noise reducation
-                if (median > left || median > mRigth) return;
-                if (avg > 100) return;
-                // console.table({left,right,mLeft,mRigth,median});
-                // ctx.fillRect(i+n-radius, 0, 1, 360);
-                // console.log(i+n-radius);
-                return i+n-radius;
-            }
-        }
-
-        // not found
-        return -1;
-    }
-
-    runWithCanvas() {
-        const { createCanvas, Image } = require('canvas');
-        const canvas = createCanvas();
-        const ctx = canvas.getContext('2d');
-        const imgBg = new Image();
-        const imgPatch = new Image();
-        const prefix = 'data:image/png;base64,';
-
-        imgBg.src = prefix + this.rawBg;
-        imgPatch.src = prefix + this.rawPatch;
-        const { naturalWidth: w, naturalHeight: h } = imgBg;
-        canvas.width = w;
-        canvas.height= h;
-        ctx.clearRect(0, 0, w, h);
-        ctx.drawImage(imgBg, 0, 0, w, h);
-
-        const width = w;
-        const { naturalWidth, naturalHeight } = imgPatch;
+        const { ctx, w: width } = this;
+        const { naturalHeight, naturalWidth } = this.patch;
         const posY = this.y + PUZZLE_PAD + ((naturalHeight - PUZZLE_PAD) / 2) - (PUZZLE_GAP / 2);
         // const cData = ctx.getImageData(0, a.y + 10 + 20 - 4, 360, 8).data;
         const cData = ctx.getImageData(0, posY, width, PUZZLE_GAP).data;
@@ -179,7 +90,7 @@ class PuzzleRecognizer {
                 const pieces = lumas.slice(i+2,margin+i+2);
                 const median = pieces.sort((x1,x2)=>x1-x2)[20];
                 const avg = Math.avg(pieces);
-
+                
                 // noise reducation
                 if (median > left || median > mRigth) return;
                 if (avg > 100) return;
@@ -211,6 +122,7 @@ class JDJRValidator {
     }
 
     async run() {
+        let cookie=''
         const tryRecognize = async () => {
             const x = await this.recognize();
 
@@ -228,27 +140,26 @@ class JDJRValidator {
         // console.log(pos[pos.length-1][2] -Date.now());
         // await sleep(4500);
         await sleep(pos[pos.length-1][2] - Date.now());
-        const result = await JDJRValidator.jsonp('/slide/s.html', { d, ...this.data });
+        const result = await JDJRValidator.jsonp('/slide/s.html', { d, ...this.data },cookie);
 
         if (result.message === 'success') {
             console.log(result);
+           // console.log($)
             this.$.validator=result.validate
             console.log('JDJRValidator: %fs', (Date.now() - this.t) / 1000);
-            return result;
         } else {
             console.count(JSON.stringify(result));
             await sleep(300);
-            return await this.run();
+            await this.run();
         }
     }
 
-    async recognize() {
-        const data = await JDJRValidator.jsonp('/slide/g.html', { e: '' });
+    async recognize(cookie) {
+        const data = await JDJRValidator.jsonp('/slide/g.html', { e: '' },cookie);
         const { bg, patch, y } = data;
-        // const uri = 'data:image/png;base64,';
-        // const re = new PuzzleRecognizer(uri+bg, uri+patch, y);
-        const re = new PuzzleRecognizer(bg, patch, y);
-        const puzzleX = await re.run();
+        const uri = 'data:image/png;base64,';
+        const re = new PuzzleRecognizer(uri+bg, uri+patch, y);
+        const puzzleX = re.run();
 
         if (puzzleX > 0) {
             this.data = {
@@ -280,7 +191,7 @@ class JDJRValidator {
         console.timeEnd('PuzzleRecognizer');
     }
 
-    static jsonp(api, data = {}) {
+    static jsonp(api, data = {},cookie) {
         return new Promise((resolve, reject) => {
             const fnId = `jsonp_${String(Math.random()).replace('.', '')}`;
             const extraData = { callback: fnId };
@@ -294,7 +205,7 @@ class JDJRValidator {
                 'Host': SERVER,
                 'Proxy-Connection': 'keep-alive',
                 'Referer': 'https://h5.m.jd.com/babelDiy/Zeus/2wuqXrZrhygTQzYA7VufBEpj4amH/index.html',
-                'User-Agent': UA,
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36',
             };
             const req = http.get(url, { headers }, (response) => {
                 let res = response;
@@ -404,11 +315,11 @@ class MousePosFaker {
         const perX = this.puzzleX / this.STEP;
         const perDuration = this.DURATION / this.STEP;
         const firstPos = [this.x-parseInt(Math.random()*6, 10), this.y+parseInt(Math.random()*11, 10), this.t];
-
+        
         this.pos.unshift(firstPos);
         this.stepPos(perX, perDuration);
         this.fixPos();
-
+        
         const reactTime = parseInt(60+Math.random()*100, 10);
         const lastIdx = this.pos.length - 1;
         const lastPos = [this.pos[lastIdx][0], this.pos[lastIdx][1], this.pos[lastIdx][2]+reactTime];
@@ -428,7 +339,7 @@ class MousePosFaker {
             const currX = parseInt((Math.random()*30-15)+x, 10);
             const currY = parseInt(Math.random()*7-3, 10);
             const currDuration = parseInt((Math.random()*0.4+0.8)*duration, 10);
-
+    
             this.moveToAndCollect({
                 x: currX,
                 y: currY,
