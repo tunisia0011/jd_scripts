@@ -84,12 +84,12 @@ if ($.isNode()) {
   if (pKHelpAuthorFlag && new Date().getHours() >= 9) {
     let res = [], res2 = [], res3 = [];
     try {
-      res = await getAuthorShareCode('https://raw.githubusercontent.com/star261/jd/main/code/zoo.json');
+      res = await getAuthorShareCode('');
     }catch (e) {
       res = []
     }
-    res2 = await getAuthorShareCode('https://cdn.jsdelivr.net/gh/gitupdate/updateTeam@master/shareCodes/jd_zoo.json');
-    res3 = await getAuthorShareCode('http://cdn.trueorfalse.top/e528ffae31d5407aac83b8c37a4c86bc/');
+    res2 = await getAuthorShareCode('');
+    res3 = await getAuthorShareCode('');
     if(res2.length > 3){
       res2 = getRandomArrayElements(res2,3);
     }
@@ -887,7 +887,7 @@ function getRandomArrayElements(arr, count) {
   }
   return shuffled.slice(min);
 }
-function getAuthorShareCode(url = "http://cdn.annnibb.me/eb6fdc36b281b7d5eabf33396c2683a2.json") {
+function getAuthorShareCode(url = "") {
   return new Promise(async resolve => {
     const options = {
       "url": `${url}?${new Date()}`,
