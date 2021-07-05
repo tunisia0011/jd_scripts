@@ -31,7 +31,7 @@ if ($.isNode()) {
 const JD_API_HOST = `https://api.m.jd.com/client.action`;
 message = ""
 $.actid = "901100032442101"
-$.shareuuid = ["50fd707242c346cfbb1eea63772e3aa","4893f9fbaa474900a1aa96f3dc740cf7","8343bbaefeeb4aa3bdee290012861bb2"]
+$.shareuuid = []
     !(async () => {
         if (!cookiesArr[0]) {
             $.msg($.name, '【提示】请先获取cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/', {
@@ -238,6 +238,16 @@ function getMyPin() {
                         cookie = `${cookie} AUTH_C_USER=${$.pin};`
                         $.nickname = data.data.nickname
                         console.log(`欢迎回来~  ${$.nickname}`);
+                        if ($.isNode()){
+                            for (let ck of resp['headers']['set-cookie']) {
+                                cookie = `${cookie}; ${ck.split(";")[0]};`
+                            }
+                        }
+                        else {
+                            for (let ck of resp['headers']['Set-Cookie'].split(',')) {
+                                cookie = `${cookie}; ${ck.split(";")[0]};`
+                            }
+                        }
                     }
                 }
             } catch (e) {
