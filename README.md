@@ -34,3 +34,7 @@
 * [@nzw9314](https://github.com/nzw9314)
 
 * [@star261](https://github.com/star261)
+
+* [@smiek2221](https://github.com/smiek2221/scripts)
+
+* [@JDHelloWorld](https://github.com/JDHelloWorld/jd_scripts)
