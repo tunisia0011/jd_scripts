@@ -73,6 +73,8 @@
 0 0 * * *  node /scripts/jd_angryKoi.js >> /scripts/logs/jd_angryKoi.log 2>&1
 #愤怒的现金
 0 0 * * *  node /scripts/jd_angryCash.js >> /scripts/logs/jd_angryCash.log 2>&1
+#省钱大赢家之翻翻乐
+20 * * * * node /scripts/jd_big_winner.js >> /scripts/logs/jd_big_winner.log 2>&1
 
 #送豆
 45 4 * * * node /scripts/jd_senbeans.js >> /scripts/logs/jd_senbeans.log 2>&1
@@ -155,6 +157,8 @@
 10 6,21 * * * node /scripts/jd_ms.js >> /scripts/logs/jd_ms.log 2>&1
 #京东保价
 #41 0,23 * * * node /scripts/jd_price.js >> /scripts/logs/jd_price.log 2>&1
+#天天加速
+8 0-23/3 * * * node /scripts/jd_speed.js >> /scripts/logs/jd_speed.log 2>&1
 #京东极速版签到+赚现金任务
 21 1,6 * * * node /scripts/jd_speed_sign.js >> /scripts/logs/jd_speed_sign.log 2>&1
 #京喜财富岛
