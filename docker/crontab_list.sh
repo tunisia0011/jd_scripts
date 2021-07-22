@@ -83,6 +83,8 @@
 3 1,6 * * * node /scripts/jd_earn30.js >> /scripts/logs/jd_earn30.log 2>&1
 #MM领京豆
 21 9 * * * node /scripts/jd_mm.js >> /scripts/logs/jd_mm.log 2>&1
+#真·抢京豆
+0 0 * * * node /scripts/jd_angryBean.js >> /scripts/logs/jd_angryBean.log 2>&1
 ##############长期活动##############
 # 签到
 7 0,17 * * * cd /scripts && node jd_bean_sign.js >> /scripts/logs/jd_bean_sign.log 2>&1
