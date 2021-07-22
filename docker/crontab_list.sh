@@ -79,6 +79,8 @@
 45 4 * * * node /scripts/jd_senbeans.js >> /scripts/logs/jd_senbeans.log 2>&1
 #柠檬开卡
 0 0 * * * node /scripts/jd_opencard1.js >> /scripts/logs/jd_opencard1.log 2>&1
+#赚30元
+3 1,6 * * * node /scripts/jd_earn30.js >> /scripts/logs/jd_earn30.log 2>&1
 #MM领京豆
 21 9 * * * node /scripts/jd_mm.js >> /scripts/logs/jd_mm.log 2>&1
 ##############长期活动##############
