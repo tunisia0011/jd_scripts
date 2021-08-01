@@ -83,6 +83,8 @@
 0 0 * * * node /scripts/jd_angryBean.js >> /scripts/logs/jd_angryBean.log 2>&1
 #奥运夺金牌开卡
 30 0,22 * * * node /scripts/jd_olympic_opencard.js >> /scripts/logs/jd_olympic_opencard.log 2>&1
+#全民奥运 激情奔跑
+30 0,8 * * * node /scripts/jd_olympic_opencard2.js >> /scripts/logs/jd_olympic_opencard2.log 2>&1
 ##############长期活动##############
 # 签到
 7 0,17 * * * cd /scripts && node jd_bean_sign.js >> /scripts/logs/jd_bean_sign.log 2>&1
