@@ -50,12 +50,14 @@
 30 0,8 * * * node /scripts/jd_olympic_opencard2.js >> /scripts/logs/jd_olympic_opencard2.log 2>&1
 #七夕情报局
 36 0,10,21 4-15 8 * node /scripts/jd_doge.js >> /scripts/logs/jd_doge.log 2>&1
+# 5G超级盲盒(活动时间：2021-8-2到2021-10-29)
+0 0,1-23/3 * * * node /scripts/jd_mohe.js >> /scripts/logs/jd_mohe.log 2>&1
 
 ##############长期活动##############
 # 签到
 7 0,17 * * * cd /scripts && node jd_bean_sign.js >> /scripts/logs/jd_bean_sign.log 2>&1
 # 京喜签到
-5 1 * * * node /scripts/jx_sign.js >> /scripts/logs/jx_sign.log 2>&1
+5 1,8 * * * node /scripts/jx_sign.js >> /scripts/logs/jx_sign.log 2>&1
 # 东东超市兑换奖品
 0,30 0 * * * node /scripts/jd_blueCoin.js >> /scripts/logs/jd_blueCoin.log 2>&1
 # 摇京豆
@@ -150,8 +152,6 @@
 30-50/5 12,23 * * * node /scripts/jd_live.js >> /scripts/logs/jd_live.log 2>&1
 # 领金贴
 5 0 * * * node /scripts/jd_jin_tie.js >> /scripts/logs/jd_jin_tie.log 2>&1
-# 跳跳乐瓜分京豆
-15 0,12,22 * * * node /scripts/jd_jump.js >> /scripts/logs/jd_jump.log 2>&1
 #京享值pk
 15 0,6,13,19,21 * * * node /scripts/jd_ddo.js >> /scripts/logs/jd_ddo.log 2>&1
 #点点券
