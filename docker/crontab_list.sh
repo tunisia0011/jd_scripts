@@ -44,16 +44,14 @@
 21 9 * * * node /scripts/jd_mm.js >> /scripts/logs/jd_mm.log 2>&1
 #真·抢京豆
 0 0 * * * node /scripts/jd_angryBean.js >> /scripts/logs/jd_angryBean.log 2>&1
-#奥运夺金牌开卡
-30 0,22 * * * node /scripts/jd_olympic_opencard.js >> /scripts/logs/jd_olympic_opencard.log 2>&1
-#全民奥运 激情奔跑
-30 0,8 * * * node /scripts/jd_olympic_opencard2.js >> /scripts/logs/jd_olympic_opencard2.log 2>&1
 #七夕情报局
 36 0,10,21 4-15 8 * node /scripts/jd_doge.js >> /scripts/logs/jd_doge.log 2>&1
 # 5G超级盲盒(活动时间：2021-8-2到2021-10-29)
 0 0,1-23/3 * * * node /scripts/jd_mohe.js >> /scripts/logs/jd_mohe.log 2>&1
 #京东手机狂欢城
 0 0-18/6 * * *  node /scripts/jd_carnivalcity.js >> /scripts/logs/jd_carnivalcity.log 2>&1
+#开卡
+28 0,22 8-15 8 * node /scripts/jd_opencard8.js >> /scripts/logs/jd_opencard8.log 2>&1
 
 ##############长期活动##############
 # 签到
