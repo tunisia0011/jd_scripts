@@ -51,7 +51,13 @@
 #京东手机狂欢城
 0 0-18/6 * * *  node /scripts/jd_carnivalcity.js >> /scripts/logs/jd_carnivalcity.log 2>&1
 #开卡
+36 0,8 4-12 8 * node /scripts/jd_opencard4.js >> /scripts/logs/jd_opencard4.log 2>&1
+38 0,8 5-12 8 * node /scripts/jd_opencard5.js >> /scripts/logs/jd_opencard5.log 2>&1
+30 0,8 * 8 * node /scripts/jd_opencard6.js >> /scripts/logs/jd_opencard6.log 2>&1
+28 0,22 8-14 8 * node /scripts/jd_opencard7.js >> /scripts/logs/jd_opencard7.log 2>&1
 28 0,22 8-15 8 * node /scripts/jd_opencard8.js >> /scripts/logs/jd_opencard8.log 2>&1
+39 0,22 8-15 8 * node /scripts/jd_opencard9.js >> /scripts/logs/jd_opencard9.log 2>&1
+30 0,22 11-18 8 * node /scripts/jd_opencard10.js >> /scripts/logs/jd_opencard10.log 2>&1
 
 ##############长期活动##############
 # 签到
