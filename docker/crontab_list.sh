@@ -58,6 +58,8 @@
 28 0,22 8-15 8 * node /scripts/jd_opencard8.js >> /scripts/logs/jd_opencard8.log 2>&1
 39 0,22 8-15 8 * node /scripts/jd_opencard9.js >> /scripts/logs/jd_opencard9.log 2>&1
 30 0,22 11-18 8 * node /scripts/jd_opencard10.js >> /scripts/logs/jd_opencard10.log 2>&1
+#汽车生活节
+30 9,21 12-20 8 * node /scripts/jd_qcshj.js >> /scripts/logs/jd_qcshj.log 2>&1
 
 ##############长期活动##############
 # 签到
