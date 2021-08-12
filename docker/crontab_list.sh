@@ -51,8 +51,6 @@
 #京东手机狂欢城
 0 0-18/6 * * *  node /scripts/jd_carnivalcity.js >> /scripts/logs/jd_carnivalcity.log 2>&1
 #开卡
-36 0,8 4-12 8 * node /scripts/jd_opencard4.js >> /scripts/logs/jd_opencard4.log 2>&1
-38 0,8 5-12 8 * node /scripts/jd_opencard5.js >> /scripts/logs/jd_opencard5.log 2>&1
 30 0,8 * 8 * node /scripts/jd_opencard6.js >> /scripts/logs/jd_opencard6.log 2>&1
 28 0,22 8-14 8 * node /scripts/jd_opencard7.js >> /scripts/logs/jd_opencard7.log 2>&1
 28 0,22 8-15 8 * node /scripts/jd_opencard8.js >> /scripts/logs/jd_opencard8.log 2>&1
@@ -177,4 +175,4 @@
 #东东电竞经理
 47 10 * * * node /scripts/jd_djjl.js >> /scripts/logs/jd_djjl.log 2>&1
 #送豆
-45 4 * * * node /scripts/jd_senbeans.js >> /scripts/logs/jd_senbeans.log 2>&1
+45 4,12 * * * node /scripts/jd_sendBeans.js >> /scripts/logs/jd_sendBeans.log 2>&1
