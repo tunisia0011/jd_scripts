@@ -27,7 +27,7 @@
 #汪汪乐园
 #*/5 * * * * node /scripts/jd_joy_park.js >> /scripts/logs/jd_joy_park.log 2>&1
 #新签到
-10 0,18 * * * node /scripts/jd_NewSign.js >> /scripts/logs/jd_NewSign.log 2>&1
+14 10 * * * node /scripts/jd_sign_graphics.js >> /scripts/logs/jd_sign_graphics.log 2>&1
 #早起福利
 30 6 * * * node /scripts/jd_goodMorning.js >> /scripts/logs/jd_goodMorning.log 2>&1
 #早起赢现金
