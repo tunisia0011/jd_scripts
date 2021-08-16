@@ -50,8 +50,6 @@
 0 0-18/6 * * *  node /scripts/jd_carnivalcity.js >> /scripts/logs/jd_carnivalcity.log 2>&1
 #开卡
 30 0,8 * 8 * node /scripts/jd_opencard6.js >> /scripts/logs/jd_opencard6.log 2>&1
-28 0,22 8-15 8 * node /scripts/jd_opencard8.js >> /scripts/logs/jd_opencard8.log 2>&1
-39 0,22 8-15 8 * node /scripts/jd_opencard9.js >> /scripts/logs/jd_opencard9.log 2>&1
 30 0,22 11-18 8 * node /scripts/jd_opencard10.js >> /scripts/logs/jd_opencard10.log 2>&1
 #汽车生活节
 30 9,21 12-20 8 * node /scripts/jd_qcshj.js >> /scripts/logs/jd_qcshj.log 2>&1
