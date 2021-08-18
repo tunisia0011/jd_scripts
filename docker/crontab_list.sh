@@ -23,7 +23,7 @@
 #全民抢京豆
 1,10,20 0 * * * node /scripts/jd_qjd.js >> /scripts/logs/jd_qjd.log 2>&1
 #众筹许愿池
-20 12 * * * node /scripts/jd_wishingPool.js >> /scripts/logs/jd_wishingPool.log 2>&1
+40 0,20 * * * node /scripts/jd_wish.js >> /scripts/logs/jd_wish.log 2>&1
 #汪汪乐园
 #*/5 * * * * node /scripts/jd_joy_park.js >> /scripts/logs/jd_joy_park.log 2>&1
 #新签到
@@ -50,7 +50,9 @@
 0 0-18/6 * * *  node /scripts/jd_carnivalcity.js >> /scripts/logs/jd_carnivalcity.log 2>&1
 #开卡
 30 0,8 * 8 * node /scripts/jd_opencard6.js >> /scripts/logs/jd_opencard6.log 2>&1
-30 0,22 11-18 8 * node /scripts/jd_opencard10.js >> /scripts/logs/jd_opencard10.log 2>&1
+30 9,21 18-25 8 * node /scripts/jd_opencard12.js >> /scripts/logs/jd_opencard12.log 2>&1
+30 9,21 18-26 8 * node /scripts/jd_opencard13.js >> /scripts/logs/jd_opencard13.log 2>&1
+18 9,22 18-31 8 * node /scripts/jd_opencard14.js >> /scripts/logs/jd_opencard14.log 2>&1
 #汽车生活节
 30 9,21 12-20 8 * node /scripts/jd_qcshj.js >> /scripts/logs/jd_qcshj.log 2>&1
 #骁龙品牌日
@@ -97,6 +99,8 @@
 20 10 * * * node /scripts/jd_bean_change.js >> /scripts/logs/jd_bean_change.log 2>&1
 # 京东抽奖机
 0 0,12,23 * * * node /scripts/jd_lotteryMachine.js >> /scripts/logs/jd_lotteryMachine.log 2>&1
+# 工业品抽奖机
+10 0 * * * node /scripts/jd_industryLottery.js >> /scripts/logs/jd_industryLottery.log 2>&1
 # 京东排行榜
 21 9 * * * node /scripts/jd_rankingList.js >> /scripts/logs/jd_rankingList.log 2>&1
 # 天天提鹅
@@ -128,7 +132,7 @@
 # 京喜农场
 30 9,12,18 * * * node /scripts/jd_jxnc.js >> /scripts/logs/jd_jxnc.log 2>&1
 # 签到领现金
-10 */4 * * * node /scripts/jd_cash.js >> /scripts/logs/jd_cash.log 2>&1
+2 0-23/4 * * * node /scripts/jd_cash.js >> /scripts/logs/jd_cash.log 2>&1
 # 闪购盲盒
 47 8,22 * * * node /scripts/jd_sgmh.js >> /scripts/logs/jd_sgmh.log 2>&1
 # 京东秒秒币
