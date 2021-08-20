@@ -53,6 +53,8 @@
 30 9,21 18-25 8 * node /scripts/jd_opencard12.js >> /scripts/logs/jd_opencard12.log 2>&1
 30 9,21 18-26 8 * node /scripts/jd_opencard13.js >> /scripts/logs/jd_opencard13.log 2>&1
 18 9,22 18-31 8 * node /scripts/jd_opencard14.js >> /scripts/logs/jd_opencard14.log 2>&1
+28 9,22 20-30 8 * node /scripts/jd_opencard15.js >> /scripts/logs/jd_opencard15.log 2>&1
+30 10,19 * 8 * node /scripts/jd_opencard16.js >> /scripts/logs/jd_opencard16.log 2>&1
 #汽车生活节
 30 9,21 12-20 8 * node /scripts/jd_qcshj.js >> /scripts/logs/jd_qcshj.log 2>&1
 #骁龙品牌日
