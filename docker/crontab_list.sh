@@ -28,6 +28,8 @@
 #*/5 * * * * node /scripts/jd_joy_park.js >> /scripts/logs/jd_joy_park.log 2>&1
 #新签到
 14 10 * * * node /scripts/jd_sign_graphics.js >> /scripts/logs/jd_sign_graphics.log 2>&1
+#领券中心签到
+15 2 * * * node /scripts/jd_ccSign.js >> /scripts/logs/jd_ccSign.log 2>&1
 #早起福利
 30 6 * * * node /scripts/jd_goodMorning.js >> /scripts/logs/jd_goodMorning.log 2>&1
 #早起赢现金
@@ -186,4 +188,4 @@
 #鲜豆庄园
 10 1 * * * node /scripts/jd_dj_plantBeans.js >> /scripts/logs/jd_dj_plantBeans.log 2>&1
 #鲜豆庄园收水滴
-5 */1 * * * node /scripts/jd_dj_getPoints.js >> /scripts/logs/jd_dj_plantBeans_getPoints.log 2>&1
+5 */1 * * * node /scripts/jd_dj_getPoints.js >> /scripts/logs/jd_dj_getPoints.log 2>&1
