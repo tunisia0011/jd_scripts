@@ -175,3 +175,7 @@
 47 10 * * * node /scripts/jd_djjl.js >> /scripts/logs/jd_djjl.log 2>&1
 #送豆
 45 4,12 * * * node /scripts/jd_sendBeans.js >> /scripts/logs/jd_sendBeans.log 2>&1
+
+##############京东到家##############
+#果园
+10 0,3,8,11,17 * * * node /scripts/jddj_bean.js >> /scripts/logs/jddj_bean.log 2>&1
