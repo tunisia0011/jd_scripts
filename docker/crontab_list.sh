@@ -178,7 +178,7 @@
 
 ##############京东到家##############
 #果园
-10 1,3,8,11,17 * * * node /scripts/jd_dj_bean.js >> /scripts/logs/jd_dj_bean.log 2>&1
+10 1,3,8,11,17 * * * node /scripts/jd_dj_fruit.js >> /scripts/logs/jd_dj_fruit.log 2>&1
 #果园水车收水滴
 5 */1 * * * node /scripts/jd_dj_fruit_collectWater.js >> /scripts/logs/jd_dj_fruit_collectWater.log 2>&1
 #鲜豆任务
