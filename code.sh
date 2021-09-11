@@ -18,6 +18,7 @@ env_name=(
   JDSGMH_SHARECODES
   JDCFD_SHARECODES
   JDHEALTH_SHARECODES
+  dyjCode
 )
 var_name=(
   ForOtherFruit
@@ -33,6 +34,7 @@ var_name=(
   ForOtherSgmh
   ForOtherCfd
   ForOtherHealth
+  ForOtherfcdyj
 )
 
 name_js=(
@@ -49,6 +51,7 @@ name_js=(
   tunisia0011_jd_scripts_jd_sgmh
   tunisia0011_jd_scripts_jd_cfd
   tunisia0011_jd_scripts_jd_health
+  tunisia0011_jd_scripts_jd_fcdyj
 )
 
 name_config=(
@@ -65,6 +68,7 @@ name_config=(
   Sgmh
   Cfd
   Health
+  fcdyj
 )
 
 name_chinese=(
@@ -81,6 +85,7 @@ name_chinese=(
   闪购盲盒
   京喜财富岛
   东东健康社区
+  发财大赢家
 )
 
 gen_pt_pin_array() {
