@@ -38,3 +38,7 @@
 * [@JDHelloWorld](https://github.com/JDHelloWorld/jd_scripts)
 
 * [@Aaron-lv](https://github.com/Aaron-lv/sync)
+
+* [@X1a0He](https://github.com/X1a0He)
+
+* [@zero205](https://github.com/zero205/JD_tencent_scf)
