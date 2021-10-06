@@ -19,7 +19,7 @@ https://h5.m.jd.com/babelDiy/Zeus/2HFSytEAN99VPmMGZ6V4EYWus1x/index.html
 ===============Quantumultx===============
 [task_local]
 #东东小窝
-16 22 * * * jd_small_home.js, tag=东东小窝, img-url=https://raw.githubusercontent.com/58xinian/icon/master/ddxw.png, enabled=true
+16 22 * * * jd_small_home.js, tag=东东小窝, img-url=https://raw.githubusercontent.com/58xinian/icon/main/ddxw.png, enabled=true
 
 ================Loon==============
 [Script]
@@ -77,26 +77,26 @@ const JD_API_HOST = 'https://lkyl.dianpusoft.cn/api';
       await smallHome();
     }
   }
-  $.inviteCodes = await getAuthorShareCode('https://raw.githubusercontent.com/Aaron-lv/updateTeam/master/shareCodes/jd_updateSmallHomeInviteCode.json')
-  if (!$.inviteCodes) {
-    $.http.get({url: 'https://purge.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/jd_updateSmallHomeInviteCode.json'}).then((resp) => {}).catch((e) => $.log('刷新CDN异常', e));
-    await $.wait(1000)
-    $.inviteCodes = await getAuthorShareCode('https://cdn.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/jd_updateSmallHomeInviteCode.json')
-  }
-  for (let i = 0; i < cookiesArr.length; i++) {
-    if (cookiesArr[i]) {
-      cookie = cookiesArr[i];
-      $.token = $.helpToken[i];
-      $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
-      if ($.newShareCodes.length > 1) {
-        // console.log('----', (i + 1) % $.newShareCodes.length)
-        let code = $.newShareCodes[(i + 1) % $.newShareCodes.length]['code']
-        console.log(`\n${$.UserName} 去给自己的下一账号 ${decodeURIComponent($.newShareCodes[(i + 1) % $.newShareCodes.length]['cookie'].match(/pt_pin=([^; ]+)(?=;?)/) && $.newShareCodes[(i + 1) % $.newShareCodes.length]['cookie'].match(/pt_pin=([^; ]+)(?=;?)/)[1])}助力，助力码为 ${code}`)
-        await createAssistUser(code, $.createAssistUserID);
-      }
-      await helpFriends();
-    }
-  }
+  // $.inviteCodes = await getAuthorShareCode('https://raw.githubusercontent.com/zero205/updateTeam/main/shareCodes/jd_updateSmallHomeInviteCode.json')
+  // if (!$.inviteCodes) {
+  //   $.http.get({url: 'https://purge.jsdelivr.net/gh/zero205/updateTeam@main/shareCodes/jd_updateSmallHomeInviteCode.json'}).then((resp) => {}).catch((e) => $.log('刷新CDN异常', e));
+  //   await $.wait(1000)
+  //   $.inviteCodes = await getAuthorShareCode('https://cdn.jsdelivr.net/gh/zero205/updateTeam@main/shareCodes/jd_updateSmallHomeInviteCode.json')
+  // }
+  // for (let i = 0; i < cookiesArr.length; i++) {
+  //   if (cookiesArr[i]) {
+  //     cookie = cookiesArr[i];
+  //     $.token = $.helpToken[i];
+  //     $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
+  //     if ($.newShareCodes.length > 1) {
+  //       // console.log('----', (i + 1) % $.newShareCodes.length)
+  //       let code = $.newShareCodes[(i + 1) % $.newShareCodes.length]['code']
+  //       console.log(`\n${$.UserName} 去给自己的下一账号 ${decodeURIComponent($.newShareCodes[(i + 1) % $.newShareCodes.length]['cookie'].match(/pt_pin=([^; ]+)(?=;?)/) && $.newShareCodes[(i + 1) % $.newShareCodes.length]['cookie'].match(/pt_pin=([^; ]+)(?=;?)/)[1])}助力，助力码为 ${code}`)
+  //       await createAssistUser(code, $.createAssistUserID);
+  //     }
+  //     await helpFriends();
+  //   }
+  // }
 })()
     .catch((e) => {
       $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
@@ -110,13 +110,13 @@ async function smallHome() {
     await ssjjRooms();
     // await helpFriends();
     if (!$.isUnLock) return;
-    await createInviteUser();
+    // await createInviteUser();
     await queryDraw();
     await lottery();
     await doAllTask();
     await queryByUserId();
     await queryFurnituresCenterList();
-    await showMsg();
+    // await showMsg();
   } catch (e) {
     $.logErr(e)
   }
@@ -145,17 +145,17 @@ async function doChannelsListTask(taskId, taskType) {
     }
   }
 }
-async function helpFriends() {
-  // await updateInviteCode();
-  // if (!$.inviteCodes) await updateInviteCodeCDN();
-  if ($.inviteCodes && $.inviteCodes['inviteCode'] && $.inviteCodes['inviteCode'].length) {
-    console.log(`\n去帮助作者\n`)
-    for (let item of $.inviteCodes.inviteCode) {
-      if (!item) continue
-      await createAssistUser(item, $.createAssistUserID);
-    }
-  }
-}
+// async function helpFriends() {
+//   // await updateInviteCode();
+//   // if (!$.inviteCodes) await updateInviteCodeCDN();
+//   if ($.inviteCodes && $.inviteCodes['inviteCode'] && $.inviteCodes['inviteCode'].length) {
+//     console.log(`\n去帮助作者\n`)
+//     for (let item of $.inviteCodes.inviteCode) {
+//       if (!item) continue
+//       await createAssistUser(item, $.createAssistUserID);
+//     }
+//   }
+// }
 async function doAllTask() {
   await queryAllTaskInfo();//获取任务详情列表$.taskList
   console.log(` 任务名称   完成进度 `)
@@ -492,35 +492,35 @@ function followChannel(taskId, channelId) {
     })
   })
 }
-function createInviteUser() {
-  return new Promise(resolve => {
-    $.get(taskUrl(`/ssjj-task-record/createInviteUser`), (err, resp, data) => {
-      try {
-        if (err) {
-          console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试`)
-        } else {
-          if (safeGet(data)) {
-            data = JSON.parse(data);
-            if (data.head.code === 200) {
-              if (data.body) {
-                if (data.body.id) {
-                  console.log(`\n您的${$.name}shareCode(每天都是变化的):【${data.body.id}】\n`);
-                  $.shareCode = data.body.id;
-                  $.newShareCodes.push({ 'code': data.body.id, 'token': $.token, cookie });
-                }
-              }
-            }
-          }
-        }
-      } catch (e) {
-        $.logErr(e, resp)
-      } finally {
-        resolve(data);
-      }
-    })
-  })
-}
+// function createInviteUser() {
+//   return new Promise(resolve => {
+//     $.get(taskUrl(`/ssjj-task-record/createInviteUser`), (err, resp, data) => {
+//       try {
+//         if (err) {
+//           console.log(`${JSON.stringify(err)}`)
+//           console.log(`${$.name} API请求失败，请检查网路重试`)
+//         } else {
+//           if (safeGet(data)) {
+//             data = JSON.parse(data);
+//             if (data.head.code === 200) {
+//               if (data.body) {
+//                 if (data.body.id) {
+//                   console.log(`\n您的${$.name}shareCode(每天都是变化的):【${data.body.id}】\n`);
+//                   $.shareCode = data.body.id;
+//                   $.newShareCodes.push({ 'code': data.body.id, 'token': $.token, cookie });
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       } catch (e) {
+//         $.logErr(e, resp)
+//       } finally {
+//         resolve(data);
+//       }
+//     })
+//   })
+// }
 
 function createAssistUser(inviteId, taskId) {
   // console.log(`${inviteId}, ${taskId}`, `${cookie}`);
@@ -790,41 +790,41 @@ function login(userName) {
     })
   })
 }
-function getAuthorShareCode(url) {
-  return new Promise(resolve => {
-    const options = {
-      url: `${url}?${new Date()}`, "timeout": 10000, headers: {
-        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
-      }
-    };
-    if ($.isNode() && process.env.TG_PROXY_HOST && process.env.TG_PROXY_PORT) {
-      const tunnel = require("tunnel");
-      const agent = {
-        https: tunnel.httpsOverHttp({
-          proxy: {
-            host: process.env.TG_PROXY_HOST,
-            port: process.env.TG_PROXY_PORT * 1
-          }
-        })
-      }
-      Object.assign(options, { agent })
-    }
-    $.get(options, async (err, resp, data) => {
-      try {
-        if (err) {
-          // console.log(`${JSON.stringify(err)}`)
-          // console.log(`${$.name} API请求失败，请检查网路重试`)
-        } else {
-          if (data) data = JSON.parse(data)
-        }
-      } catch (e) {
-        // $.logErr(e, resp)
-      } finally {
-        resolve(data);
-      }
-    })
-  })
-}
+// function getAuthorShareCode(url) {
+//   return new Promise(resolve => {
+//     const options = {
+//       url: `${url}?${new Date()}`, "timeout": 10000, headers: {
+//         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
+//       }
+//     };
+//     if ($.isNode() && process.env.TG_PROXY_HOST && process.env.TG_PROXY_PORT) {
+//       const tunnel = require("tunnel");
+//       const agent = {
+//         https: tunnel.httpsOverHttp({
+//           proxy: {
+//             host: process.env.TG_PROXY_HOST,
+//             port: process.env.TG_PROXY_PORT * 1
+//           }
+//         })
+//       }
+//       Object.assign(options, { agent })
+//     }
+//     $.get(options, async (err, resp, data) => {
+//       try {
+//         if (err) {
+//           // console.log(`${JSON.stringify(err)}`)
+//           // console.log(`${$.name} API请求失败，请检查网路重试`)
+//         } else {
+//           if (data) data = JSON.parse(data)
+//         }
+//       } catch (e) {
+//         // $.logErr(e, resp)
+//       } finally {
+//         resolve(data);
+//       }
+//     })
+//   })
+// }
 function taskUrl(url, body = {}) {
   return {
     url: `${JD_API_HOST}/${url}?body=${escape(body)}`,
