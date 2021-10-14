@@ -1,7 +1,7 @@
 /**
  * 京喜app->领88元红包
  * 先内部，后助力HW.ts
- * cron: 5 0,6,20 * * *
+ * cron: 5 0,6,18 * * *
  */
 
 import {requireConfig, wait, h5st, getBeanShareCode, getFarmShareCode} from "./TS_USER_AGENTS";
@@ -23,6 +23,7 @@ let shareCodesSelf: string[] = [], shareCodes: string[] = [], shareCodesHW: stri
   }
 
   let cookiesArr: any = await requireConfig();
+
   for (let i = 0; i < cookiesArr.length; i++) {
     cookie = cookiesArr[i];
     UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)![1])
@@ -35,7 +36,8 @@ let shareCodesSelf: string[] = [], shareCodes: string[] = [], shareCodesHW: stri
     }
 
     res = await api('GetUserInfo', 'activeId,channel,phoneid,publishFlag,stepreward_jstoken,timestamp,userDraw', {userDraw: 1})
-    let strUserPin: string = res.Data.strUserPin
+    let strUserPin: string = res.Data.strUserPin, dwHelpedTimes: number = res.Data.dwHelpedTimes;
+    console.log('收到助力:', dwHelpedTimes)
     console.log('助力码：', strUserPin)
     shareCodesSelf.push(strUserPin)
     await makeShareCodes(strUserPin)
@@ -46,16 +48,17 @@ let shareCodesSelf: string[] = [], shareCodes: string[] = [], shareCodesHW: stri
   }
 
   console.log('内部助力码：', shareCodesSelf)
+
   for (let i = 0; i < cookiesArr.length; i++) {
     cookie = cookiesArr[i];
     UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)![1])
 
     await getCodesHW()
+    shareCodes = Array.from(new Set([...shareCodesSelf, ...shareCodesHW]))
     if (shareCodesHW.length !== 0) {
-      res = await getCodesPool()
-      shareCodes = [...new Set([...shareCodesSelf, ...shareCodesHW, ...res])]
-    } else {
-      shareCodes = shareCodesSelf
+      console.log('获取随机助力码')
+      res = await getCodesPool();
+      shareCodes = Array.from(new Set([...shareCodes, ...res]))
     }
     console.log('助力排队:', shareCodes)
 
@@ -64,7 +67,6 @@ let shareCodesSelf: string[] = [], shareCodes: string[] = [], shareCodesHW: stri
       res = await api('EnrollFriend', 'activeId,channel,joinDate,phoneid,publishFlag,stepreward_jstoken,strPin,timestamp', {joinDate: '20211004', strPin: shareCodes[j]})
       if (res.iRet === 0) {
         console.log('成功')
-        await wait(5000)
       } else if (res.iRet === 2015) {
         console.log('上限')
         break
@@ -73,8 +75,8 @@ let shareCodesSelf: string[] = [], shareCodes: string[] = [], shareCodesHW: stri
         break
       } else {
         console.log('其他错误:', res)
-        break
       }
+      await wait(5000)
     }
   }
 
@@ -87,7 +89,6 @@ let shareCodesSelf: string[] = [], shareCodes: string[] = [], shareCodesHW: stri
 
     res = await api('GetUserInfo', 'activeId,channel,phoneid,publishFlag,stepreward_jstoken,timestamp,userDraw', {userDraw: 1})
     let strUserPin: string = res.Data.strUserPin, dwHelpedTimes: number = res.Data.dwHelpedTimes;
-    console.log('收到助力:', dwHelpedTimes)
     await wait(2000)
 
     for (let t of res.Data.gradeConfig) {
@@ -148,10 +149,10 @@ async function api(fn: string, stk: string, params: Params = {}) {
 async function getCodesHW() {
   try {
     let {data}: any = await axios.get('https://api.jdsharecode.xyz/api/HW_CODES', {timeout: 10000})
-    console.log('获取HW_CODES成功')
+    console.log('获取HW_CODES成功(api)')
     shareCodesHW = data['88hb']
   } catch (e: any) {
-    console.log('获取HW_CODES失败')
+    console.log('获取HW_CODES失败(api)')
   }
 }
 
