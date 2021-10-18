@@ -49,7 +49,7 @@ name_js=(
   tunisia0011_jd_scripts_jd_bookshop
   tunisia0011_jd_scripts_jd_cash
   tunisia0011_jd_scripts_jd_sgmh
-  tunisia0011_jd_scripts_jd_ccfd
+  tunisia0011_jd_scripts_jd_cfd
   tunisia0011_jd_scripts_jd_health
   tunisia0011_jd_scripts_jd_fcdyj
 )
